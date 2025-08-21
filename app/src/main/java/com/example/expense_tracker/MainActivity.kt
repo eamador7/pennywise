@@ -3,13 +3,17 @@ package com.example.expense_tracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
+import androidx.activity.viewModels
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Text("Hello, World!")
+            val application = application as ExpenseApplication
+            val viewModel: AddExpenseViewModel by viewModels {
+                AddExpenseViewModelFactory(application.database.expenseDao())
+            }
+            AddExpenseScreen(viewModel = viewModel)
         }
     }
 }
