@@ -82,6 +82,7 @@ dependencies {
     // Vico Charting Library
     val vico_version = "1.13.1"
     implementation("com.patrykandpatrick.vico:core:$vico_version")
+    implementation("com.patrykandpatrick.vico:compose:$vico_version")
     implementation("com.patrykandpatrick.vico:compose-m3:$vico_version")
 
     testImplementation("junit:junit:4.13.2")
