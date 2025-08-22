@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.paging:paging-compose:$paging_version")
 
     // Vico Charting Library
-    val vico_version = "1.13.1"
+    val vico_version = "1.12.0"
     implementation("com.patrykandpatrick.vico:core:$vico_version")
     implementation("com.patrykandpatrick.vico:compose:$vico_version")
     implementation("com.patrykandpatrick.vico:compose-m3:$vico_version")
