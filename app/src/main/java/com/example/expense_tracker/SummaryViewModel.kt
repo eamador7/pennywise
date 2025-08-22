@@ -36,6 +36,20 @@ class SummaryViewModel(private val expenseDao: ExpenseDao) : ViewModel() {
         expenseDao.getFilteredExpenses(dateRange.start, dateRange.endInclusive, currency, category)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val chartData: StateFlow<Map<String, Double>> = combine(
+        filteredExpenses,
+        _selectedCurrency
+    ) { expenses, currency ->
+        if (currency == null || currency == "All") {
+            emptyMap()
+        } else {
+            expenses
+                .groupBy { it.category }
+                .mapValues { (_, expenses) -> expenses.sumOf { it.amount } }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
+
+
     fun setDateFilter(filter: TimeFilter) {
         val calendar = Calendar.getInstance()
         _endDate.value = calendar.timeInMillis
