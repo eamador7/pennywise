@@ -3,6 +3,7 @@ package com.example.expense_tracker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import java.util.Calendar
 
@@ -10,6 +11,7 @@ enum class TimeFilter {
     DAY, WEEK, MONTH, YEAR
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SummaryViewModel(private val expenseDao: ExpenseDao) : ViewModel() {
 
     private val _startDate = MutableStateFlow(getStartOfWeek())
