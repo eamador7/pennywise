@@ -6,13 +6,13 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,11 +47,11 @@ class MainActivity : ComponentActivity() {
 
             Scaffold(
                 bottomBar = {
-                    BottomNavigation {
+                    NavigationBar {
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
                         val currentDestination = navBackStackEntry?.destination
                         screens.forEach { screen ->
-                            BottomNavigationItem(
+                            NavigationBarItem(
                                 icon = {
                                     when (screen) {
                                         Screen.AddExpense -> Icon(Icons.Default.Add, contentDescription = null)
