@@ -8,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.PieChart
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                                 icon = {
                                     when (screen) {
                                         Screen.AddExpense -> Icon(Icons.Default.Add, contentDescription = null)
-                                        Screen.Summary -> Icon(Icons.Default.PieChart, contentDescription = null)
+                                        Screen.Summary -> Icon(Icons.Default.Info, contentDescription = null)
                                         Screen.AllExpenses -> Icon(Icons.Default.List, contentDescription = null)
                                     }
                                 },
