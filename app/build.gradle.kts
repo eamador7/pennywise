@@ -79,11 +79,8 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation("androidx.paging:paging-compose:$paging_version")
 
-    // Vico Charting Library
-    val vico_version = "1.12.0"
-    implementation("com.patrykandpatrick.vico:core:$vico_version")
-    implementation("com.patrykandpatrick.vico:compose:$vico_version")
-    implementation("com.patrykandpatrick.vico:compose-m3:$vico_version")
+    // MPAndroidChart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

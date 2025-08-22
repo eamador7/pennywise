@@ -8,11 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
-import com.patrykandpatrick.vico.compose.pie.PieChart
-import com.patrykandpatrick.vico.core.model.PieModel
-import com.patrykandpatrick.vico.core.model.slice
+import androidx.compose.ui.viewinterop.AndroidView
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -128,24 +131,23 @@ fun SummaryChart(chartData: Map<String, Double>) {
             Text("Please select a single currency to see a summary chart.", style = MaterialTheme.typography.bodyLarge)
         }
     } else {
-        val chartColors = listOf(
-            Color(0xFFF44336), Color(0xFFE91E63), Color(0xFF9C27B0), Color(0xFF673AB7),
-            Color(0xFF3F51B5), Color(0xFF2196F3), Color(0xFF03A9F4), Color(0xFF00BCD4),
-            Color(0xFF009688), Color(0xFF4CAF50), Color(0xFF8BC34A), Color(0xFFCDDC39)
-        )
-
-        val model = PieModel(
-            slices = chartData.entries.mapIndexed { index, entry ->
-                slice(
-                    label = entry.key,
-                    value = entry.value.toFloat(),
-                    color = chartColors[index % chartColors.size]
-                )
-            }
-        )
-
-        PieChart(
-            pieModel = model,
+        AndroidView(
+            factory = { context ->
+                PieChart(context).apply {
+                    description.isEnabled = false
+                    isDrawHoleEnabled = true
+                    legend.isEnabled = false
+                }
+            },
+            update = { chart ->
+                val entries = chartData.map { (category, amount) ->
+                    PieEntry(amount.toFloat(), category)
+                }
+                val dataSet = PieDataSet(entries, "Expenses by Category")
+                dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
+                chart.data = PieData(dataSet)
+                chart.invalidate()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
