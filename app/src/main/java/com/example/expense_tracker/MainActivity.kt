@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -38,10 +39,14 @@ class MainActivity : ComponentActivity() {
             val allExpensesViewModel: AllExpensesViewModel by viewModels {
                 AllExpensesViewModelFactory(application.database.expenseDao())
             }
+            val summaryViewModel: SummaryViewModel by viewModels {
+                SummaryViewModelFactory(application.database.expenseDao())
+            }
 
             val navController = rememberNavController()
             val screens = listOf(
                 Screen.AddExpense,
+                Screen.Summary,
                 Screen.AllExpenses
             )
 
@@ -55,6 +60,7 @@ class MainActivity : ComponentActivity() {
                                 icon = {
                                     when (screen) {
                                         Screen.AddExpense -> Icon(Icons.Default.Add, contentDescription = null)
+                                        Screen.Summary -> Icon(Icons.Default.BarChart, contentDescription = null)
                                         Screen.AllExpenses -> Icon(Icons.Default.List, contentDescription = null)
                                     }
                                 },
@@ -81,6 +87,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(Screen.AddExpense.route) {
                         AddExpenseScreen(viewModel = addExpenseViewModel)
+                    }
+                    composable(Screen.Summary.route) {
+                        SummaryScreen(viewModel = summaryViewModel)
                     }
                     composable(Screen.AllExpenses.route) {
                         AllExpensesScreen(viewModel = allExpensesViewModel)

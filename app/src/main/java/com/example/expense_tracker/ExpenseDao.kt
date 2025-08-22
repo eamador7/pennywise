@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.paging.PagingSource
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ExpenseDao {
@@ -12,4 +13,7 @@ interface ExpenseDao {
 
     @Query("SELECT * FROM expenses ORDER BY date DESC")
     fun getAllExpenses(): PagingSource<Int, Expense>
+
+    @Query("SELECT * FROM expenses ORDER BY date DESC LIMIT 5")
+    fun getRecentExpenses(): Flow<List<Expense>>
 }
